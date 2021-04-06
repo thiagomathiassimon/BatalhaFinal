@@ -2,21 +2,13 @@ package br.com.devinhouse.batalhafinal.enums;
 
 public enum Arma {
 
-    ESPADA("Jogador", 5), MACHADO("Jogador", 5), MARTELO("Jogador", 5),
-    CLAVA("Jogador", 5), ARCO("Jogador", 5), BESTA("Jogador", 5),
-    CAJADO("Jogador", 5), LIVRO_DE_MAGIAS("Jogador", 5), ARMADILHA("Armadilha", 2),
-    MACHADO_DUPLO("Líder", 7);
+    ESPADA(5), MACHADO(5), MARTELO(5), CLAVA(5), ARCO(5), BESTA(5),
+    CAJADO(5), LIVRO_DE_MAGIAS(5), ARMADILHA(2), MACHADO_DUPLO(7);
 
-    private String tipoDeArma;
     private int poderDeAtaque;
 
-    private Arma(String tipoDeArma, int poderDeAtaque){
-        this.tipoDeArma = tipoDeArma;
+    private Arma(int poderDeAtaque){
         this.poderDeAtaque = poderDeAtaque;
-    }
-
-    public String getTipoDeArma() {
-        return tipoDeArma;
     }
 
     public int getPoderDeAtaque() {
