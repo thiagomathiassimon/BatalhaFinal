@@ -4,6 +4,7 @@ import br.com.devinhouse.batalhafinal.enums.Arma;
 import br.com.devinhouse.batalhafinal.enums.Motivacao;
 import br.com.devinhouse.batalhafinal.exceptions.IllegalNameFormatException;
 import br.com.devinhouse.batalhafinal.exceptions.IllegalSexFormatException;
+import br.com.devinhouse.batalhafinal.exceptions.IllegalWeaponSelectionException;
 import br.com.devinhouse.batalhafinal.interfaces.Atacante;
 
 public abstract class Jogador extends Personagem implements Atacante {
@@ -15,13 +16,13 @@ public abstract class Jogador extends Personagem implements Atacante {
     private Motivacao motivacao;
     private Arma arma;
 
-    public Jogador(int pontosDeSaude, int pontosDeAtaque, int pontosDeDefesa, String nome, String sexo, Motivacao motivacao, Arma arma)
-            throws IllegalNameFormatException, IllegalSexFormatException {
-        super(pontosDeSaude, pontosDeAtaque, pontosDeDefesa);
-        this.nome = validarNome(nome);
-        this.sexo = validarSexo(sexo);
+    public Jogador(int pontosDeAtaque, int pontosDeDefesa, String nome, String sexo, Motivacao motivacao, Arma arma)
+            throws IllegalNameFormatException, IllegalSexFormatException, IllegalWeaponSelectionException {
+        super(PONTOS_DE_SAUDE_MAXIMOS, pontosDeAtaque, pontosDeDefesa);
+        this.nome = this.validarNome(nome);
+        this.sexo = this.validarSexo(sexo);
         this.motivacao = motivacao;
-        this.arma = arma;
+        this.arma = this.validarArma(arma);
     }
 
     private String validarNome(String nome) throws IllegalNameFormatException {
@@ -37,6 +38,8 @@ public abstract class Jogador extends Personagem implements Atacante {
         }
         return sexo;
     }
+
+    protected abstract Arma validarArma(Arma arma) throws IllegalWeaponSelectionException;
 
     @Override
     public void atacar(Personagem persongameAtacado) {
