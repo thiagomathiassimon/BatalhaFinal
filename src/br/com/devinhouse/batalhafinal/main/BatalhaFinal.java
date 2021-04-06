@@ -1,18 +1,84 @@
 package br.com.devinhouse.batalhafinal.main;
 
+import br.com.devinhouse.batalhafinal.enums.Arma;
+import br.com.devinhouse.batalhafinal.enums.Motivacao;
+import br.com.devinhouse.batalhafinal.exceptions.*;
+import br.com.devinhouse.batalhafinal.model.*;
+
+import java.util.Scanner;
+
 public class BatalhaFinal {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Seja bem vindo(a) à BATALHA FINAL!");
-        // TODO: solicitar ao jogador um nome para o personagem.
-        // TODO: solicitar ao jogador um sexo para o personagem.
-        //       M ou F.
-        // TODO: solicitar ao jogador qual a classe do personagem.
-        //       Guerreiro, Paladino, Arqueiro, Mago.
-        // TODO: solicitar ao jogador qual arma o personagem vai usar,
-        //       dentre as opções disponíveis para a classe selecionada.
-        // TODO: instanciar um novo objeto da classe selecionada pelo jogador,
-        //       passando como argumentos os valores coletados.
+        Jogador jogador = null;
+        try {
+            jogador = new Guerreiro("Nome", "M", Motivacao.INICIAL, Arma.ESPADA);
+        } catch (IllegalNameFormatException infe) {
+            System.err.println("Atenção: " + infe.getMessage());
+        } catch (IllegalSexFormatException isfe) {
+            System.err.println("Cuidado: " + isfe.getMessage());
+        } catch (IllegalWeaponSelectionException iwse) {
+            System.err.println("Erro: " + iwse.getMessage());
+        }
+        boolean repetirFormulario = true;
+        do {
+            try {
+                System.out.println("Informai vosso nome.");
+                String nome = scanner.nextLine();
+                System.out.println(nome + ", informai vosso sexo(M ou F).");
+                String sexo = scanner.nextLine();
+                System.out.println(nome + ", informai vossa classe(Guerreiro, Paladino, Arqueiro ou Mago).");
+                String classe = scanner.nextLine();
+                String opcoesDeArma = "";
+                switch (classe.toUpperCase()) {
+                    case "GUERREIRO" -> opcoesDeArma = Arma.ESPADA + "ou" + Arma.MACHADO;
+                    case "PALADINO" -> opcoesDeArma = Arma.MARTELO + "ou" + Arma.CLAVA;
+                    case "ARQUEIRO" -> opcoesDeArma = Arma.ARCO + "ou" + Arma.BESTA;
+                    case "MAGO" -> opcoesDeArma = Arma.CAJADO + "ou" + Arma.LIVRO_DE_MAGIAS;
+                    default -> throw new IllegalClassSelectionException("A classe selecionada é uma classe inválida.\nPor favor, selecione outra.");
+                }
+                System.out.println(nome + ", informai vossa arma(" + opcoesDeArma + ").");
+                String armaEscolhida = scanner.nextLine();
+                Arma arma = Arma.ESPADA;
+                if (armaEscolhida.equalsIgnoreCase(Arma.ESPADA.name())){
+                    arma = Arma.ESPADA;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.MACHADO.name())){
+                    arma = Arma.MACHADO;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.MARTELO.name())){
+                    arma = Arma.MARTELO;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.CLAVA.name())){
+                    arma = Arma.CLAVA;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.ARCO.name())){
+                    arma = Arma.ARCO;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.BESTA.name())){
+                    arma = Arma.BESTA;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.CAJADO.name())){
+                    arma = Arma.CAJADO;
+                } else if(armaEscolhida.equalsIgnoreCase(Arma.LIVRO_DE_MAGIAS.name())){
+                    arma = Arma.LIVRO_DE_MAGIAS;
+                } else {
+                    throw  new IllegalWeaponSelectionException("A arma selecionada não é uma arma válda.\nPor favor, selecione outra.");
+                }
+
+                switch (classe.toUpperCase()) {
+                    case "GUERREIRO" ->  jogador = new Guerreiro(nome, sexo, Motivacao.INICIAL, arma);
+                    case "PALADINO" -> jogador = new Paladino(nome, sexo, Motivacao.INICIAL, arma);
+                    case "ARQUEIRO" -> jogador = new Arquiero(nome, sexo, Motivacao.INICIAL, arma);
+                    case "MAGO" -> jogador = new Mago(nome, sexo, Motivacao.INICIAL, arma);
+                }
+                repetirFormulario = false;
+            }catch (IllegalClassSelectionException icse){
+                System.err.println("Cuidado: " + icse.getMessage());
+            } catch (IllegalNameFormatException infe) {
+                System.err.println(infe.getMessage());
+            } catch (IllegalSexFormatException isfe) {
+                System.err.println("Erro: " + isfe.getMessage());
+            } catch (IllegalWeaponSelectionException iwse) {
+                System.err.println("Atenção: " + iwse.getMessage());
+            }
+        } while (repetirFormulario);
 
         System.out.println("A noite se aproxima, a lua já surge no céu, estrelas vão se acendendo,\n"
                 + "e sob a luz do crepúsculo você está prestes a entrar na fase final da sua missão.\n"
@@ -24,30 +90,46 @@ public class BatalhaFinal {
                 + "Você está a um passo de encerrar para sempre esse mal.");
 
         System.out.println("Buscando uma injeção de ânimo, você se força a lembrar o que te trouxe até aqui.");
+        repetirFormulario = true;
+        do {
+            try {
+                System.out.println(jogador.getNome() + ", por que está nessa missão de destruir os inimigos?\nVingança ou Glória?");
 
-        // TODO: pedir ao jogador para escolher a motivação do seu personagem.
-        //       por que o personagem está nessa missão de destruir os inimigos?
-        //       Vingança ou Glória?
+                String motivacaoEscolhida = scanner.nextLine();
+                Motivacao motivacao = Motivacao.INICIAL;
+                if (motivacaoEscolhida.equalsIgnoreCase(Motivacao.VINGANCA.name())) {
+                    motivacao = Motivacao.VINGANCA;
+                } else if (motivacaoEscolhida.equalsIgnoreCase(Motivacao.GLORIA.name())) {
+                    motivacao = Motivacao.GLORIA;
+                } else {
+                    throw new IllegalMotivationSelectionException("A motivação selecionada não é uma motivação válda.\nPor favor, selecione outra.");
+                }
+                jogador.setMotivacao(motivacao);
+                repetirFormulario = false;
+            } catch (IllegalMotivationSelectionException imse) {
+                System.err.println(imse.getMessage());
+            }
+        } while (repetirFormulario);
 
-        // TODO: if (motivação do jogador == VINGANÇA)
-        System.out.println("Imagens daquela noite trágica invadem sua mente.\n"
-                + "Você nem precisa se esforçar para lembrar, pois essas memórias estão sempre presentes,\n"
-                + "mesmo que de pano de fundo, quando você tem outros pensamentos em foco, elas nunca o deixaram.\n"
-                + "Elas são o combustível que te fizeram chegar até aqui.\n"
-                + "E você sabe que não irá desistir até ter vingado a morte\n"
-                + "daqueles que foram - e pra sempre serão - sua fonte de amor e desejo de continuar vivo.\n"
-                + "O maldito líder finalmente pagará por tanto mal causado na vida de tantos\n"
-                + "(e principalmente na sua).");
-        // TODO else
-        System.out.println("Você já consegue visualizar na sua mente o povo da cidade te recebendo de braços abertos,\n"
-                + "bardos criando canções sobre seus feitos heróicos, nobres te presenteando com jóias e diversas riquezas,\n"
-                + "taberneiros se recusando a cobrar por suas bebedeiras e comilanças.\n"
-                + "Desde já, você sente o amor do público, te louvando a cada passo que dá pelas ruas,\n"
-                + "depois de destruir o vilão que tanto assombrou a paz de todos.\n"
-                + "Porém, você sabe que ainda falta o último ato dessa história.\n"
-                + "Você se concentra na missão.\n"
-                + "A glória o aguarda, mas não antes da última batalha.");
-
+        if (jogador.getMotivacao() == Motivacao.VINGANCA) {
+            System.out.println("Imagens daquela noite trágica invadem sua mente.\n"
+                    + "Você nem precisa se esforçar para lembrar, pois essas memórias estão sempre presentes,\n"
+                    + "mesmo que de pano de fundo, quando você tem outros pensamentos em foco, elas nunca o deixaram.\n"
+                    + "Elas são o combustível que te fizeram chegar até aqui.\n"
+                    + "E você sabe que não irá desistir até ter vingado a morte\n"
+                    + "daqueles que foram - e pra sempre serão - sua fonte de amor e desejo de continuar vivo.\n"
+                    + "O maldito líder finalmente pagará por tanto mal causado na vida de tantos\n"
+                    + "(e principalmente na sua).");
+        } else {
+            System.out.println("Você já consegue visualizar na sua mente o povo da cidade te recebendo de braços abertos,\n"
+                    + "bardos criando canções sobre seus feitos heróicos, nobres te presenteando com jóias e diversas riquezas,\n"
+                    + "taberneiros se recusando a cobrar por suas bebedeiras e comilanças.\n"
+                    + "Desde já, você sente o amor do público, te louvando a cada passo que dá pelas ruas,\n"
+                    + "depois de destruir o vilão que tanto assombrou a paz de todos.\n"
+                    + "Porém, você sabe que ainda falta o último ato dessa história.\n"
+                    + "Você se concentra na missão.\n"
+                    + "A glória o aguarda, mas não antes da última batalha.");
+        }
         System.out.println("Inspirado pelo motivo que te trouxe até aqui, você sente seu coração ardendo em chamas,\n"
                 + "suas mãos formigarem em volta da sua arma. Você a segura com firmeza. Seu foco está renovado.\n"
                 + "Você avança pelo portal.");
@@ -171,6 +253,8 @@ public class BatalhaFinal {
         System.out.println("Você se levanta, olha para os prisioneiros, vai de um em um e os liberta,\n"
                 + "e todos vocês saem em direção à noite, retornando à cidade.\n"
                 + "Seu dever está cumprido.");
+
+        scanner.close();
     }
 
     private void combate(/* parâmetros */) {
@@ -188,6 +272,5 @@ public class BatalhaFinal {
 		Caso o inimigo morra com o seu ataque, o jogo deve exibir “O inimigo não é páreo para o seu heroísmo, e jaz imóvel aos seus pés.”
 		*/
     }
-
 
 }
