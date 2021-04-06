@@ -19,4 +19,8 @@ public abstract class Inimigo extends Personagem implements Atacante {
     public void setArma(Arma arma) {
         this.arma = arma;
     }
+
+    @Override
+    public void atacar(Personagem personagemAtacado) {
+    }
 }

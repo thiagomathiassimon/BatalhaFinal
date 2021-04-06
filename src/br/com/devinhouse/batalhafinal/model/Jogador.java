@@ -42,7 +42,7 @@ public abstract class Jogador extends Personagem implements Atacante {
     protected abstract Arma validarArma(Arma arma) throws IllegalWeaponSelectionException;
 
     @Override
-    public void atacar(Personagem persongameAtacado) {
+    public void atacar(Personagem personagemAtacado) {
 
     }
 
