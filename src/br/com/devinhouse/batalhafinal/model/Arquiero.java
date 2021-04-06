@@ -6,7 +6,7 @@ import br.com.devinhouse.batalhafinal.exceptions.IllegalNameFormatException;
 import br.com.devinhouse.batalhafinal.exceptions.IllegalSexFormatException;
 import br.com.devinhouse.batalhafinal.exceptions.IllegalWeaponSelectionException;
 
-public class Arquiero extends Jogador{
+public class Arquiero extends Jogador {
     private static final int PONTOS_DE_ATAQUE = 18;
     private static final int PONTOS_DE_DEFESA = 13;
 
@@ -23,4 +23,8 @@ public class Arquiero extends Jogador{
         throw new IllegalWeaponSelectionException("A arma escolhida não pode ser utilizada por persongans dessa class.");
     }
 
+    @Override
+    public void atacar(Personagem personagemAtacado) {
+        super.atacar(personagemAtacado);
+    }
 }

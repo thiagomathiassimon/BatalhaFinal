@@ -12,7 +12,7 @@ public class Alquimista extends Inimigo{
     }
 
     @Override
-    public void atacar(Personagem persongameAtacado) {
+    public void atacar(Personagem personagemAtacado) {
 
     }
 }
