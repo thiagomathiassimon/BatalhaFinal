@@ -22,9 +22,4 @@ public class Arquiero extends Jogador {
         }
         throw new IllegalWeaponSelectionException("A arma escolhida não pode ser utilizada por persongans dessa class.");
     }
-
-    @Override
-    public void atacar(Personagem personagemAtacado) {
-        super.atacar(personagemAtacado);
-    }
 }
