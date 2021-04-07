@@ -41,6 +41,10 @@ public abstract class Jogador extends Personagem implements Atacante {
 
     protected abstract Arma validarArma(Arma arma) throws IllegalWeaponSelectionException;
 
+    public void restaurarPontosDeSaudeAoMaximo(){
+        this.setPontosDeSaude(PONTOS_DE_SAUDE_MAXIMOS);
+    }
+
     @Override
     public void atacar(Personagem personagemAtacado) {
 

@@ -12,6 +12,10 @@ public abstract class Personagem {
         this.pontosDeDefesa = pontosDeDefesa;
     }
 
+    public void aumentarPontosDeDefesa(int quantiaDeAumento){
+        this.pontosDeSaude += quantiaDeAumento;
+    }
+
     public int getPontosDeSaude() {
         return pontosDeSaude;
     }
