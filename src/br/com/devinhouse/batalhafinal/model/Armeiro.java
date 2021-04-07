@@ -11,8 +11,4 @@ public class Armeiro extends Inimigo{
         super(PONTOS_DE_SAUDE_MAXIMOS, PONTOS_DE_ATAQUE, PONTOS_DE_DEFESA, Arma.ESPADA);
     }
 
-    @Override
-    public void atacar(Personagem personagemAtacado) {
-
-    }
 }

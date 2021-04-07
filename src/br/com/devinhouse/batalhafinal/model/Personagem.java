@@ -1,6 +1,10 @@
 package br.com.devinhouse.batalhafinal.model;
 
-public abstract class Personagem {
+import br.com.devinhouse.batalhafinal.interfaces.Atacante;
+
+import java.util.Random;
+
+public abstract class Personagem implements Atacante {
 
     private int pontosDeSaude;
     private int pontosDeAtaque;
@@ -16,11 +20,18 @@ public abstract class Personagem {
         this.pontosDeSaude += quantiaDeAumento;
     }
 
+    public int lancarDadoDeVinteFaces(){
+        return new Random().nextInt(20) + 1;
+    }
+
+    @Override
+    public abstract void atacar(Personagem persongameAtacado);
+
     public int getPontosDeSaude() {
         return pontosDeSaude;
     }
 
-    public void setPontosDeSaude(int pontosDeSaude) {
+    protected void setPontosDeSaude(int pontosDeSaude) {
         this.pontosDeSaude = pontosDeSaude;
     }
 

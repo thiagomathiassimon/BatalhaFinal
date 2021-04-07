@@ -11,8 +11,4 @@ public class Lider extends Inimigo {
         super(PONTOS_DE_SAUDE_MAXIMOS, PONTOS_DE_ATAQUE, PONTOS_DE_DEFESA, Arma.MACHADO_DUPLO);
     }
 
-    @Override
-    public void atacar(Personagem persongameAtacado) {
-
-    }
 }
