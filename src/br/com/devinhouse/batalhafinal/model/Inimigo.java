@@ -26,18 +26,21 @@ public abstract class Inimigo extends Personagem implements Atacante {
         int ataqueTotal = this.getPontosDeAtaque() + this.arma.getPoderDeAtaque() + valorDoDado;
         int danoCausado;
         if(valorDoDado == 1) {
-            danoCausado = 0;
             System.out.println("O inimigo errou o ataque! Você não sofreu dano.");
         } else if (valorDoDado == 20){
             danoCausado = ataqueTotal;
             personagemAtacado.setPontosDeSaude(personagemAtacado.getPontosDeSaude() - danoCausado);
-            System.out.println("O inimigo acertou um ataque crítico! Você sofreu " + danoCausado + " de dano e agora possui" + personagemAtacado.getPontosDeSaude() +
-                    "pontos de vida.");
+            System.out.println("O inimigo acertou um ataque crítico! Você sofreu " + danoCausado + " de dano e agora possui " + personagemAtacado.getPontosDeSaude() +
+                    " pontos de vida.");
         } else {
             danoCausado = ataqueTotal - personagemAtacado.getPontosDeDefesa();
-            personagemAtacado.setPontosDeSaude(personagemAtacado.getPontosDeSaude() - danoCausado);
-            System.out.println("O inimigo atacou! Você sofreu " + danoCausado + " de dano e agora possui " + personagemAtacado.getPontosDeSaude() +
-                    " pontos de vida.");
+            if (danoCausado <= 0){
+                System.out.println("O ataque do inimigo não foi suficiente para romper sua defesa e, por isso, você não sofreu nenhum dano.");
+            } else {
+                personagemAtacado.setPontosDeSaude(personagemAtacado.getPontosDeSaude() - danoCausado);
+                System.out.println("O inimigo atacou! Você sofreu " + danoCausado + " de dano e agora possui " + personagemAtacado.getPontosDeSaude() +
+                        " pontos de vida.");
+            }
         }
     }
 }
