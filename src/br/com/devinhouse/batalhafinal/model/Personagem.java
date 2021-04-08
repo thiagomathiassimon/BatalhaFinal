@@ -31,8 +31,12 @@ public abstract class Personagem implements Atacante {
         return pontosDeSaude;
     }
 
-    protected void setPontosDeSaude(int pontosDeSaude) {
-        this.pontosDeSaude = pontosDeSaude;
+    protected void setPontosDeSaude(int pontosDeSaude){
+        if (pontosDeSaude < 0){
+            this.pontosDeSaude = 0;
+        } else {
+            this.pontosDeSaude = pontosDeSaude;
+        }
     }
 
     public int getPontosDeAtaque() {
